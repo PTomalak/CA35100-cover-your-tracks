@@ -1,0 +1,18 @@
+{
+  "name": "cover-your-tracks",
+  "version": "1.0.0",
+  "repository": "git@github.com:efforg/cover-your-tracks.git",
+  "author": "William Budington <bill@eff.org>",
+  "license": "AGPLv3",
+  "scripts": {
+    "build": "rm -rf static/dist templates/dist/* && parcel build parcel/*.html --dist-dir static/dist --public-url /static/dist && mv static/dist/*.html templates/dist"
+  },
+  "dependencies": {
+    "fingerprintjs2": "^2.1.0",
+    "jquery": "^3.6.1",
+    "tippy.js": "^6.3.7"
+  },
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
+}

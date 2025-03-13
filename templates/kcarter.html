@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block java %}
+{% endblock %}
+
+{% block head %}
+  <script src="static/fp2.js" type="text/javascript"></script>
+  {% include 'dist/fp2.html' %}
+  <script src="static/fetch_first_party_isolated_whorls.js" type="text/javascript"></script>
+  <body id="testing">
+{% endblock %}
+
+{% block body %}
+  <div class="testing">
+   <div class="main-section">
+    <h2>
+      Testing your browser<br>
+      <img src='/static/images/ajax-loader.gif' alt='loading...'>
+    </h2>
+    <p>This is an EFF project that allows you to understand how easy it is to identify and track your browser based on how it appears to websites. </p>
+    <iframe id="a" style="position:absolute;right:0px;bottom:0px;height:1px;width:1px;"></iframe>
+    <iframe id="t" style="position:absolute;left:0px;bottom:0px;height:1px;width:1px;"></iframe>
+    <iframe id="dnt" style="position:absolute;left:0px;bottom:0px;height:1px;width:1px;"></iframe>
+  </div>
+  </div>
+  <script type="text/javascript">
+
+    window.onload = function(){
+      var next = '{{ next_link|safe }}';
+
+      var cb = Math.floor((Math.random()*1000000)+1);
+      var a = document.getElementById('a');
+      a.src = 'https://{{ third_party_trackers['ad_server'] }}/kcarting-tally?&ad_url=' + cb;
+
+      var t = document.getElementById('t');
+      t.src = 'https://{{ third_party_trackers['tracker_server'] }}/kcarting-tally?&trackingserver=' + cb;
+
+      var dnt = document.getElementById('dnt');
+      dnt.src = 'https://{{ third_party_trackers['dnt_server'] }}/kcarting-tally?&random=' + cb;
+
+      window.addEventListener("message", receiveMessage, false);
+      function receiveMessage(event){
+        if(event.origin == "https://{{ third_party_trackers['ad_server'] }}"){
+          next += '&a={{ request.args.get('a') or '' }}1';
+        }
+        if(event.origin == "https://{{ third_party_trackers['tracker_server'] }}"){
+          next += '&t={{ request.args.get('t') or '' }}1';
+        }
+        if(event.origin == "https://{{ third_party_trackers['dnt_server'] }}"){
+          next += '&dnt={{ request.args.get('dnt') or '' }}1';
+        }
+      }
+
+      setTimeout(function(){
+        {% if last_redirect %}
+          fetch_first_party_isolated_whorls(function(fpi_whorls){
+            let fpi_whorls_param = new URLSearchParams();
+            fpi_whorls_param.append('fpi_whorls', JSON.stringify(fpi_whorls));
+            next += '&' + fpi_whorls_param.toString();
+            window.location = next;
+          });
+        {% else %}
+          window.location = next;
+        {% endif %}
+      },3000);
+    }
+
+    window.onunload=function() {};
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=/kcarter-nojs">
+  </noscript>
+
+{% endblock %}

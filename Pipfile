@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+blinker = ">=1"
+flask = "~=2.0"
+mysqlclient = ">=2"
+sentry-sdk = {version = ">=1", extras = ["flask"]}
+eventlet = ">=0"
+gunicorn = ">=21"
+
+[requires]
+python_version = "3.11"

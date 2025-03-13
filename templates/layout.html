@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+<html>
+  <head>
+    <title>Cover Your Tracks{% if title %} | {{ title }}{% endif %}</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <link rel="stylesheet" href="static/animation.css" type="text/css" />
+    <link rel="shortcut icon" href='/static/favicon.ico'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:image" content="https://{{ config.get('SITE_DOMAIN') }}/static/images/cyt-banner.png"/>
+    <meta property="og:image:secure_url" content="https://{{ config.get('SITE_DOMAIN') }}/static/images/cyt-banner.png"/>
+    <meta property="og:description" content="See how trackers view your browser"/>
+    <!-- Twitter: card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cover Your Tracks">
+    <meta name="twitter:description" content="See how trackers view your browser">
+    <meta name="twitter:image"  content="https://{{ config.get('SITE_DOMAIN') }}/static/images/cyt-banner.png">
+    {% block meta %}
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    {% endblock %}
+    {% include 'dist/jquery.html' %}
+    {% block head %}{% endblock %}
+  </head>
+
+    {% block header %}
+    <body>
+
+      <div class="header">
+        <div class="banner">
+          <div class="bar">
+            <div class="wrapper">
+            <div class="attribution">
+              <img class="logo" src="/static/images/eff-logo-red.svg" alt="EFF logo">
+              <span>A Project of the <a href="https://www.eff.org/">Electronic Frontier Foundation</a>
+              <span>
+            </div>
+          </div>
+          </div>
+          <div class="wrapper">
+          <div class="title-area">
+            <div class="site-title">
+                <a class="cyt-logo" href="/">
+                </a>
+              <h2 class="tagline">
+                See how trackers view your browser
+              </h2>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/about">About</a></li>
+              </ul>
+            </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  <div class="wrapper">
+    <div class="content">
+        {% block body %}{% endblock %}
+    </div>
+
+      {% block java %}
+        <style>
+          .userData {behavior:url(#default#userdata);}
+        </style>
+
+        <element class="userData" id="oPersistElement">
+
+        <script type="text/javascript">
+          var attributes = {codebase: "java", code: "fonts.class", id: "javafontshelper", name: "javafontshelper", "mayscript": "true", width: 1, height: 1};
+          if (deployJava.versionCheck('1.1+'))
+            deployJava.writeAppletTag(attributes);
+        </script>
+        <div id="flashcontent"></div>
+        <div id="oPersistDiv" class="userData"></div>
+        <script src="static/fetch_whorls.js" defer type="text/javascript">
+        </script>
+      {% endblock %}
+
+      {% block footer %}
+        <footer>
+          <div class="footer-logo"></div>
+
+          <div class="links">
+            <a href="https://supporters.eff.org/donate/coveryourtracks">Donate to EFF</a>
+            <a href="https://www.eff.org/about/contact">Contact</a>
+            <a href="/privacy">Privacy</a>
+            <a href="https://www.eff.org/copyright">CC-License</a>
+          </div>
+        </footer>
+      {% endblock %}
+    </div>
+
+    {% if config.get('USE_MATOMO') %}
+      <noscript><img src="https://{{ config.get('MATOMO_URL') }}/js/?idsite={{ config.get('MATOMO_SITE_ID') }}&amp;rec=1&amp;action_name=Panopticlick{% if title %} | {{ title }}{% endif %}" style="border:0" height="0" width="0" alt="" /></noscript>
+      <div style="height: 0; width: 0; position: absolute" id="anon-stats"></div>
+      <script type="text/javascript">
+        document.getElementById('anon-stats').innerHTML = '<img src="https://{{ config.get('MATOMO_URL') }}/js/?idsite={{ config.get('MATOMO_SITE_ID') }}&amp;rec=1&amp;urlref=' + encodeURIComponent(document.referrer) + '&amp;action_name=' + encodeURIComponent(document.title) + '" style="border:0" height="0" width="0" alt="" />';
+      </script>
+    {% endif %}
+  </body>
+</html>

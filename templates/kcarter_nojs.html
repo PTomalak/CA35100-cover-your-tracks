@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block head %}
+  <body id="testing">
+{% endblock %}
+
+{% block body %}
+<div class="testing">
+  <div class="main-section">
+    <h2>
+      Testing your browser<br>
+      <img src='/static/images/ajax-loader.gif' alt='loading...'>
+    </h2>
+    <p>This is an EFF project that allows you to understand how easy it is to identify and track your browser based on how it appears to websites. </p>
+    <iframe id="a" style="position:absolute;right:0px;bottom:0px;height:1px;width:1px;" src='https://{{ third_party_trackers['ad_server'] }}/kcarting-tally-nojs?{% if try2 %}try2=true{% else %}&amp;ad_url={{ cb }}{% endif %}'></iframe>
+    <iframe id="t" style="position:absolute;right:0px;bottom:0px;height:1px;width:1px;" src='https://{{ third_party_trackers['tracker_server'] }}/kcarting-tally-nojs?{% if try2 %}try2=true{% else %}&amp;trackingserver={{ cb }}{% endif %}'></iframe>
+    <iframe id="dnt" style="position:absolute;right:0px;bottom:0px;height:1px;width:1px;" src='https://{{ third_party_trackers['dnt_server'] }}/kcarting-tally-nojs?{% if try2 %}try2=true{% else %}&amp;ad_url={{ cb }}&amp;trackingserver={{ cb }}{% endif %}'></iframe>
+  </div>
+</div>
+<noscript>
+  <meta http-equiv="refresh" content="3;url={{ next_link }}">
+</noscript>
+<script type='text/javascript'>
+  window.location = '/kcarter';
+</script>
+{% endblock %}

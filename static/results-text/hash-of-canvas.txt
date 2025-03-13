@@ -1,0 +1,18 @@
+<h5>What is this?</h5>
+<p>A tracking site can perform a specific test on the HTML5 &lt;canvas&gt; element in your browser. This metric is the unique identification the tracker assigns to your browser after it performs this test.</p>
+<p>
+ <a href='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>Canvas fingerprinting</a>  is invisible to the user. A tracker can create a “canvas” in your browser, and generate a complicated collage of shapes, colors, and text using JavaScript. Then, with the resulting collage, the tracker extracts data about exactly how each pixel on the canvas is rendered. Many variables will affect the final result. These include your operating system, graphics card, firmware version, graphics driver version, and installed fonts.
+</p>
+<h5>How is this used in your fingerprint?</h5>
+<p>This is a complex and very reliable fingerprinting metric for trackers.
+</p>
+<p>Slightly different images will be rendered due to small differences in:
+</p>
+<ul>
+<li>video card hardware,</li>
+<li>video drivers,</li>
+<li>operating system, and</li>
+<li>installed fonts.</li>
+</ul>
+<p>These settings are different from one computer to the next. But they tend to be consistent enough on a single machine to clearly identify a user.
+</p>
